@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getLocationData } from '../../api/weather-service';
 import { WeatherModel } from '../../models/weather.model';
+import arrowIcon from '../../assets/images/icons8-arrow-30.png';
 
 const Home: React.FC = () => {
   const [geoData, setGeoData] = useState<WeatherModel>();
@@ -26,7 +27,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="mx-96">
+    <div className="mx-5">
       <div className="text-center mb-10 mt-10">
         <h1 className="font-paytone-one text-3xl ">Do I need an ☂️?</h1>
       </div>
@@ -36,7 +37,7 @@ const Home: React.FC = () => {
           {geoData?.weather[0].description} for the hour.
         </h1>
         <h1 className="first-letter:uppercase">
-          {`${Math.round(geoData?.wind.speed || 0)}m/s winds from ${
+          {`${Math.floor(geoData?.wind.speed || 0)}m/s winds from ${
             geoData?.wind.deg
           } degrees.`}
         </h1>
@@ -49,9 +50,19 @@ const Home: React.FC = () => {
           </div>
           <div>
             <h1 className="text-7xl font-bold mt-2">
-              {Math.round(geoData?.main.temp || 0)}°C
+              {Math.floor(geoData?.main.temp || 0)}°
             </h1>
+            <h2 className="text-gray-500 font-bold">
+              Feels like {Math.floor(geoData?.main.feels_like || 0)}°
+            </h2>
           </div>
+        </div>
+        <div className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+          <p>Go check Hello Weather!</p>
+          <p>
+            The best Weather App{' '}
+            <img width={15} className="inline-block" src={arrowIcon} alt="" />
+          </p>
         </div>
       </div>
       <div className="flex justify-start flex-col">
